@@ -1,0 +1,216 @@
+//TODO put as property
+@calendar-color: #6b6b6b;
+@calendar-max-height: 600px;
+@border-color: #b7b7b7;
+@header-color: @calendar-color;
+@header-bg-color: #f7f7f7;
+@header-font-size: 16px;
+@header-height: 28px;
+@column-min-width: 100px;
+@scale-width: 125px;
+@scale-cell-bg: #fff;
+@cell-bg-color: #fff;
+
+//overlay
+@overlay-selected-bg-color: rgba(139,195,74, 0.4);
+
+//dayCell
+@daycell-bg-color-hover: rgba(249,105,14,0.4);
+@daycell-border-color-hover: #f9690e;
+
+//event
+@event-color: @calendar-color;
+
+//modal variable
+@modal-backdrop: rgba(0,0,0,0.6);
+@modal-padding: 100px;
+@modal-border-color: #b7b7b7;
+@modal-content-padding: 10px;
+
+.weekCalendar {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding-left: @scale-width;
+  padding-top: @header-height;
+  color: @calendar-color;
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.weekCalendar__header {
+  position: absolute;
+  height: @header-height;
+  line-height: @header-height;
+  z-index: 10;
+  top: 0;
+  padding-left: @scale-width;
+  text-align: center;
+  font-size: @header-font-size;
+  font-weight: bold;
+}
+
+.weekCalendar__scaleHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: @scale-width;
+  height: @header-height;
+  background-color: @header-bg-color;
+  border: 1px solid @border-color;
+  line-height: @header-height;
+  color: @header-color;
+  text-align: center;
+  font-size: @header-font-size;
+  font-weight: bold;
+}
+
+.weekCalendar__headerWrapper{
+  height: 100%;
+  border-top: 1px solid @border-color;
+  border-bottom: 1px solid @border-color;
+  background-color: @header-bg-color;
+  color: @header-color;
+}
+
+.weekCalendar__headerColumn {
+  height: 100%;
+  display: inline-block;
+  border-right: 1px solid @border-color;
+}
+
+.weekCalendar__scaleColumn {
+  position: absolute;
+  z-index: 9;
+  left: 0;
+  padding-top: @header-height;
+  width: @scale-width;
+  border-right: 1px solid @border-color;
+  border-left: 1px solid @border-color;
+  text-align: center;
+}
+
+.weekCalendar__scaleCell {
+  background-color: @scale-cell-bg;
+  border-bottom: 1px solid @border-color;
+}
+
+.weekCalendar__content {
+  position: relative;
+  width: auto;
+  overflow: auto;
+  max-height: @calendar-max-height;
+}
+
+.weekCalendar__overlay {
+  position: absolute;
+  background-color: @overlay-selected-bg-color;
+}
+
+.weekCalendar__status_selection .weekCalendar__overlay {
+  pointer-events: none;
+}
+
+.calendarBody {
+  position: relative;
+  display: table;
+  table-layout: fixed;
+  min-width: 100%;
+}
+
+.calendarBody__row {
+  display: table-row;
+}
+
+.calendarBody__cell {
+  background-color: @cell-bg-color;
+  border-bottom: 1px solid @border-color;
+}
+
+.calendarBody__column {
+  display: table-cell;
+  border-right: 1px solid @border-color;
+  min-width: @column-min-width;
+}
+
+.dayCell {
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:hover {
+    cursor: pointer;
+    background-color: @daycell-bg-color-hover;
+    border-color: @daycell-border-color-hover;
+  }
+}
+
+.event {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  color: @event-color;
+}
+
+.calendarModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: @modal-padding;
+  z-index: 100;
+}
+
+.calendarModal__backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: @modal-backdrop;
+}
+
+.calendarModal__content {
+  position: relative;
+  margin: auto;
+  border: 1px solid @modal-border-color;
+  background: #fff;
+  padding: @modal-content-padding;
+  border-radius: 3px;
+}
+
+.customModal__text {
+  text-align: center;
+  margin-bottom: 5px;
+  white-space:nowrap;
+}
+
+.customModal__input {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.customModal__button {
+  display: inline-block;
+  padding: 3px 6px;
+  border: 1px solid @modal-border-color;
+  color: red;
+  margin-bottom: 5px;
+
+  &:hover, &:focus {
+    cursor: pointer;
+    color: blue;
+  }
+}
+
+.customModal__button_float_right {
+  float: right;
+}
