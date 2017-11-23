@@ -26,6 +26,10 @@
 @modal-padding: 100px;
 @modal-border-color: #b7b7b7;
 @modal-content-padding: 10px;
+@modal-button-color: #fff;
+@modal-button-bg-color: rgba(249,105,14,0.8);
+@modal-button-border-color: @modal-button-bg-color;
+@modal-button-bg-color-hover: rgba(249,105,14,0.6);
 
 .weekCalendar {
   position: relative;
@@ -205,13 +209,14 @@
 .customModal__button {
   display: inline-block;
   padding: 3px 6px;
-  border: 1px solid @modal-border-color;
-  color: red;
+  color: @modal-button-color;
+  border: 1px solid @modal-button-border-color;
   margin-bottom: 5px;
+  background-color: @modal-button-bg-color;
 
   &:hover, &:focus {
     cursor: pointer;
-    color: blue;
+    background-color: @modal-button-bg-color-hover;
   }
 }
 
