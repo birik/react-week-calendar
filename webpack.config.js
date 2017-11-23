@@ -7,7 +7,7 @@ module.exports = {
     app: './example/src/js/app.js',
   },
   output: {
-    path: path.resolve(__dirname, 'examples/dist'),
+    path: path.resolve(__dirname, 'example/dist'),
     filename: '[name].js',
     publicPath: '/',
   },
@@ -40,10 +40,6 @@ module.exports = {
     },
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'common.js',
-    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, 'example/src/index.html'),
