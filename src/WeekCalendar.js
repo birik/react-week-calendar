@@ -12,8 +12,6 @@ import DayCell from './DayCell';
 import Event from './Event';
 import Modal from './Modal';
 
-import './style.less';
-
 const propTypes = {
   firstDay: PropTypes.object, //the first day in the caledar
   numberOfDays: PropTypes.number,
@@ -42,8 +40,8 @@ const propTypes = {
 
 const defaultProps = {
   firstDay: moment(),
-  numberOfDays: 14,
-  scaleHeaderTitle: 'Time',
+  numberOfDays: 7,
+  scaleHeaderTitle: '',
   headerCellComponent: HeaderCell,
   dayFormat: 'dd., DD.MM',
   startTime: moment({h: 0, m: 0}),
@@ -328,7 +326,7 @@ class WeekCalendar extends React.Component {
       let lastSelectedColumn = this.state.columnDimensions[Math.max(startPosition.x, mousePosition.x)];
       let width = (lastSelectedColumn.left - left) + lastSelectedColumn.width;
       let height = ((Math.max(startPosition.y, mousePosition.y) + 1) * this.props.cellHeight) - top;
-      return <div className="weekCalendar__overlay" style={{top, left, width, height }}></div>
+      return <div className="weekCalendar__overlay weekCalendar__overlay_status_selection" style={{top, left, width, height }}></div>
     }
     return null;
   }

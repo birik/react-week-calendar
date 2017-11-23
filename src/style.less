@@ -1,4 +1,3 @@
-//TODO put as property
 @calendar-color: #6b6b6b;
 @calendar-max-height: 600px;
 @border-color: #b7b7b7;
@@ -12,7 +11,7 @@
 @cell-bg-color: #fff;
 
 //overlay
-@overlay-selected-bg-color: rgba(139,195,74, 0.4);
+@overlay-selection-bg-color:  rgba(249,105,14,0.2);
 
 //dayCell
 @daycell-bg-color-hover: rgba(249,105,14,0.4);
@@ -20,6 +19,7 @@
 
 //event
 @event-color: @calendar-color;
+@event-bg-color: rgba(139,195,74, 0.4);
 
 //modal variable
 @modal-backdrop: rgba(0,0,0,0.6);
@@ -108,7 +108,10 @@
 
 .weekCalendar__overlay {
   position: absolute;
-  background-color: @overlay-selected-bg-color;
+}
+
+.weekCalendar__overlay_status_selection {
+  background-color: @overlay-selection-bg-color;
 }
 
 .weekCalendar__status_selection .weekCalendar__overlay {
@@ -157,6 +160,7 @@
   width: 100%;
   height: 100%;
   color: @event-color;
+  background-color: @event-bg-color;
 }
 
 .calendarModal {
