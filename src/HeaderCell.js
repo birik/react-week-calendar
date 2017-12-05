@@ -7,7 +7,7 @@ const propTypes = {
 };
 
 
-export class HeaderCell extends React.PureComponent {
+class HeaderCell extends React.PureComponent {
   render() {
     const {
       date,

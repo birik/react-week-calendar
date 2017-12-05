@@ -52,7 +52,7 @@ function getIntervalsByDuration(duration, startTime, endTime) {
   var end = void 0;
   var result = [];
 
-  for (var i = startIndex; i < endIndex; i++) {
+  for (var i = startIndex; i < endIndex; i += 1) {
     end = start.clone().add(duration, 'm');
     var interval = {
       start: start,
@@ -62,7 +62,7 @@ function getIntervalsByDuration(duration, startTime, endTime) {
     start = end;
   }
   var lastElement = result.pop();
-  if (lastElement.end.format('HH:mm') == '00:00') {
+  if (lastElement.end.format('HH:mm') === '00:00') {
     lastElement = {
       start: lastElement.start,
       end: (0, _moment2.default)({ hour: 23, minute: 59 })

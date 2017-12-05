@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.HeaderCell = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28,7 +27,7 @@ var propTypes = {
   dayFormat: _propTypes2.default.string.isRequired
 };
 
-var HeaderCell = exports.HeaderCell = function (_React$PureComponent) {
+var HeaderCell = function (_React$PureComponent) {
   _inherits(HeaderCell, _React$PureComponent);
 
   function HeaderCell() {

@@ -12,15 +12,15 @@ const propTypes = {
   scaleIntervals: PropTypes.array.isRequired,
   cellHeight: PropTypes.number.isRequired,
   dayCellComponent: PropTypes.func.isRequired,
-  onSelectionStart: PropTypes.func,
-  onCellMouseEnter: PropTypes.func,
+  onSelectionStart: PropTypes.func.isRequired,
+  onCellMouseEnter: PropTypes.func.isRequired,
 };
 
-export class CalendarBody extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.scaleUnit != this.props.scaleUnit
-      || nextProps.cellHeight != this.props.cellHeight
-      || nextProps.numberOfDays != this.props.numberOfDays
+class CalendarBody extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.scaleUnit !== this.props.scaleUnit
+      || nextProps.cellHeight !== this.props.cellHeight
+      || nextProps.numberOfDays !== this.props.numberOfDays
       || !nextProps.firstDay.isSame(this.props.firstDay, 'day');
   }
 
@@ -35,7 +35,7 @@ export class CalendarBody extends React.Component {
     } = this.props;
 
     const weekdayColumns = [];
-    for (let i = 0; i < numberOfDays; i++) {
+    for (let i = 0; i < numberOfDays; i += 1) {
       const day = moment(firstDay).add(i, 'd');
       const intervals = getDayIntervals(day, scaleIntervals);
       weekdayColumns.push(<DayColumn

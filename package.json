@@ -1,26 +1,28 @@
 {
   "name": "react-week-calendar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Week calendar on react",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm run clean && npm run build:js && npm run copy:less && npm run build:examples",
+    "build": "npm run clean && npm run build:js && npm run copy:less && npm run build:css && npm run build:examples",
+    "build:css": "lessc --clean-css src/style.less dist/style.css",
     "build:examples": "webpack --progress -p",
     "build:js": "babel src/ -d dist/",
     "clean": "rimraf dist",
     "clean:examples": "rimraf example/dist",
     "copy:less": "ncp src/style.less dist/style.less",
+    "lint": "eslint ./src",
     "start": "webpack-dev-server --progress",
     "test": "mocha --require test/setup.js --reporter min \"test/*-test.js\"",
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
-    "classnames": "^2.2.4",
     "prop-types": "^15.5.8"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
@@ -39,6 +41,7 @@
     "jsdom": "^11.3.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "less-plugin-clean-css": "^1.5.1",
     "lodash": "^4.17.4",
     "mocha": "^3.0.2",
     "moment": "^2.18.1",

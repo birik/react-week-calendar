@@ -1,11 +1,12 @@
 require('babel-register');
 
-//enzyme config
+// enzyme config
 const Enzyme = require('enzyme');
 const Adapter = require('enzyme-adapter-react-16');
+
 Enzyme.configure({ adapter: new Adapter() });
 
-//cofing for mount
+// cofing for mount
 const { JSDOM } = require('jsdom');
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');

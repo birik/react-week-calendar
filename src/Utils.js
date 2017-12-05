@@ -6,10 +6,10 @@ export function getOffset(time) {
 }
 
 export function getMoment(duration, numberOfUnits, offset = 0) {
-  if (duration * numberOfUnits + offset >= 24 * 60) {
+  if ((duration * numberOfUnits) + offset >= 24 * 60) {
     return moment({ h: 23, m: 59 });
   }
-  return moment({ h: 0, m: 0 }).add(duration * numberOfUnits + offset, 'm');
+  return moment({ h: 0, m: 0 }).add((duration * numberOfUnits) + offset, 'm');
 }
 
 export function getNumberOfCells(time, duration, isUpRound, offset = 0) {
@@ -32,7 +32,7 @@ export function getIntervalsByDuration(duration, startTime, endTime) {
   let end;
   const result = [];
 
-  for (let i = startIndex; i < endIndex; i++) {
+  for (let i = startIndex; i < endIndex; i += 1) {
     end = start.clone().add(duration, 'm');
     const interval = {
       start,
@@ -42,7 +42,7 @@ export function getIntervalsByDuration(duration, startTime, endTime) {
     start = end;
   }
   let lastElement = result.pop();
-  if (lastElement.end.format('HH:mm') == '00:00') {
+  if (lastElement.end.format('HH:mm') === '00:00') {
     lastElement = {
       start: lastElement.start,
       end: moment({ hour: 23, minute: 59 }),
@@ -54,8 +54,14 @@ export function getIntervalsByDuration(duration, startTime, endTime) {
 
 export function getDayIntervals(day, scaleIntervals) {
   return scaleIntervals.map((scaleInterval) => {
-    const start = moment(day).hour(scaleInterval.start.hour()).minute(scaleInterval.start.minute()).second(0);
-    const end = moment(day).hour(scaleInterval.end.hour()).minute(scaleInterval.end.minute()).second(0);
+    const start = moment(day)
+      .hour(scaleInterval.start.hour())
+      .minute(scaleInterval.start.minute())
+      .second(0);
+    const end = moment(day)
+      .hour(scaleInterval.end.hour())
+      .minute(scaleInterval.end.minute())
+      .second(0);
     return {
       start,
       end,
@@ -69,7 +75,8 @@ export function getIntervals(start, end) {
 
   for (let i = 0; i <= diffDays; i += 1) {
     const startInterval = moment(start).add(i, 'day');
-    const endInterval = moment(start).add(i, 'day').hour(end.hour()).minute(end.minute()).second(0);
+    const endInterval = moment(start).add(i, 'day').hour(end.hour()).minute(end.minute())
+      .second(0);
     result.push({
       start: startInterval,
       end: endInterval,

@@ -14,10 +14,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44,8 +40,8 @@ var ScaleColumn = function (_React$Component) {
 
   _createClass(ScaleColumn, [{
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      return nextProps.scaleUnit != this.props.scaleUnit || nextProps.cellHeight != this.props.cellHeight;
+    value: function shouldComponentUpdate(nextProps) {
+      return nextProps.scaleUnit !== this.props.scaleUnit || nextProps.cellHeight !== this.props.cellHeight;
     }
   }, {
     key: 'renderScaleCell',
@@ -85,5 +81,4 @@ var ScaleColumn = function (_React$Component) {
 }(_react2.default.Component);
 
 ScaleColumn.propTypes = propTypes;
-
 exports.default = ScaleColumn;

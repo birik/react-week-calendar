@@ -1,7 +1,6 @@
 import React from 'react';
 
 class CustomModal extends React.Component {
-
   handleRemove = () => {
     this.props.onRemove();
   }
@@ -11,7 +10,7 @@ class CustomModal extends React.Component {
     const phone = this.phone.value;
     this.props.onSave({
       fullname,
-      phone
+      phone,
     });
   }
 
@@ -21,11 +20,11 @@ class CustomModal extends React.Component {
       fullname,
       phone,
       start,
-      end
+      end,
     } = this.props;
 
-    let startHour = start.hour();
-    let endHour = end.hour() <= 17 ? end.hour() : 17;
+    const startHour = start.hour();
+    const endHour = end.hour() <= 17 ? end.hour() : 17;
 
     const duration = endHour - startHour;
 
@@ -34,17 +33,17 @@ class CustomModal extends React.Component {
         <div className="customModal__text">{`Book the apointment in some place from ${start.format('HH:mm')} on ${duration} hours for ${duration * 10}$`}</div>
         <div>This is great choice</div>
         <input
-          ref = {(el) => this.fullname = el}
+          ref={el => this.fullname = el}
           className="customModal__input"
           type="text"
           placeholder="Full name"
           defaultValue={fullname}
         />
         <input
-          ref = {(el) => this.phone = el}
+          ref={el => this.phone = el}
           className="customModal__input"
           type="text"
-          placeholder="Full name"
+          placeholder="Phone number"
           defaultValue={phone}
         />
         <button className="customModal__button customModal__button_example" onClick={this.handleSave}>Book</button>

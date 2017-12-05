@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CalendarBody = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -40,11 +39,11 @@ var propTypes = {
   scaleIntervals: _propTypes2.default.array.isRequired,
   cellHeight: _propTypes2.default.number.isRequired,
   dayCellComponent: _propTypes2.default.func.isRequired,
-  onSelectionStart: _propTypes2.default.func,
-  onCellMouseEnter: _propTypes2.default.func
+  onSelectionStart: _propTypes2.default.func.isRequired,
+  onCellMouseEnter: _propTypes2.default.func.isRequired
 };
 
-var CalendarBody = exports.CalendarBody = function (_React$Component) {
+var CalendarBody = function (_React$Component) {
   _inherits(CalendarBody, _React$Component);
 
   function CalendarBody() {
@@ -55,8 +54,8 @@ var CalendarBody = exports.CalendarBody = function (_React$Component) {
 
   _createClass(CalendarBody, [{
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      return nextProps.scaleUnit != this.props.scaleUnit || nextProps.cellHeight != this.props.cellHeight || nextProps.numberOfDays != this.props.numberOfDays || !nextProps.firstDay.isSame(this.props.firstDay, 'day');
+    value: function shouldComponentUpdate(nextProps) {
+      return nextProps.scaleUnit !== this.props.scaleUnit || nextProps.cellHeight !== this.props.cellHeight || nextProps.numberOfDays !== this.props.numberOfDays || !nextProps.firstDay.isSame(this.props.firstDay, 'day');
     }
   }, {
     key: 'render',
@@ -71,7 +70,7 @@ var CalendarBody = exports.CalendarBody = function (_React$Component) {
 
 
       var weekdayColumns = [];
-      for (var i = 0; i < numberOfDays; i++) {
+      for (var i = 0; i < numberOfDays; i += 1) {
         var day = (0, _moment2.default)(firstDay).add(i, 'd');
         var intervals = (0, _Utils.getDayIntervals)(day, scaleIntervals);
         weekdayColumns.push(_react2.default.createElement(_DayColumn2.default, {

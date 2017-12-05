@@ -2,23 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  startTime: PropTypes.object.isRequired,
-  endTime: PropTypes.object.isRequired,
-  startSelection: PropTypes.func,
-}
+  startSelection: PropTypes.func.isRequired,
+};
 
 
-export class DayCell extends React.Component {
-
+class DayCell extends React.Component {
   handleMouseDown = (e) => {
-    if (e.button == 0) {
+    if (e.button === 0) {
       this.props.startSelection();
     }
   }
 
   render() {
     return (
-      <div onMouseDown={this.handleMouseDown} className="dayCell">
+      <div onMouseDown={this.handleMouseDown} className="dayCell" role="presentation">
           &nbsp;
       </div>);
   }

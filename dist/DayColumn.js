@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DayColumn = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28,11 +27,11 @@ var propTypes = {
   dayIntervals: _propTypes2.default.array.isRequired,
   cellHeight: _propTypes2.default.number.isRequired,
   dayCellComponent: _propTypes2.default.func.isRequired,
-  onSelectionStart: _propTypes2.default.func,
-  onCellMouseEnter: _propTypes2.default.func
+  onSelectionStart: _propTypes2.default.func.isRequired,
+  onCellMouseEnter: _propTypes2.default.func.isRequired
 };
 
-var DayColumn = exports.DayColumn = function (_React$Component) {
+var DayColumn = function (_React$Component) {
   _inherits(DayColumn, _React$Component);
 
   function DayColumn() {
@@ -72,15 +71,20 @@ var DayColumn = exports.DayColumn = function (_React$Component) {
       var dayCells = dayIntervals.map(function (interval, rowPos) {
         return _react2.default.createElement(
           'div',
-          { key: rowPos, className: 'calendarBody__cell', style: { height: cellHeight },
-            onMouseEnter: _this2.handleMouseEnter(colPos, rowPos) },
+          {
+            key: rowPos,
+            className: 'calendarBody__cell',
+            style: { height: cellHeight },
+            onMouseEnter: _this2.handleMouseEnter(colPos, rowPos)
+          },
           _react2.default.createElement(DayCell, {
             colPos: colPos,
             rowPos: rowPos,
             startTime: interval.start,
             endTime: interval.end,
             cellHeight: _this2.props.cellHeight,
-            startSelection: _this2.handleStartSelection(colPos, rowPos) })
+            startSelection: _this2.handleStartSelection(colPos, rowPos)
+          })
         );
       });
 

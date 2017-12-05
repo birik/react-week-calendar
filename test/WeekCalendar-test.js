@@ -1,6 +1,6 @@
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount } from "enzyme";
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import moment from 'moment';
 
@@ -14,17 +14,16 @@ import Event from './../src/Event';
 
 
 describe('WeekCalendar', () => {
-
   let props;
   const columnDimensions = [
-    {left: 0, width: 100},
-    {left: 100, width: 100},
-    {left: 200, width: 100},
-    {left: 300, width: 100},
-    {left: 400, width: 100},
-    {left: 500, width: 100},
-    {left: 600, width: 100},
-    {left: 700, width: 100},
+    { left: 0, width: 100 },
+    { left: 100, width: 100 },
+    { left: 200, width: 100 },
+    { left: 300, width: 100 },
+    { left: 400, width: 100 },
+    { left: 500, width: 100 },
+    { left: 600, width: 100 },
+    { left: 700, width: 100 },
   ];
   beforeEach(() => {
     props = {
@@ -32,8 +31,8 @@ describe('WeekCalendar', () => {
       numberOfDays: 3,
       scaleHeaderTitle: 'Test Header',
       dayFormat: 'DD.MM',
-      startTime: moment({h:0, m:0}),
-      endTime: moment({h:23, m:59}),
+      startTime: moment({ h: 0, m: 0 }),
+      endTime: moment({ h: 23, m: 59 }),
       scaleUnit: 30,
       scaleFormat: 'HH:mm',
       cellHeight: 30,
@@ -41,7 +40,7 @@ describe('WeekCalendar', () => {
       selectedIntervals: [],
       onIntervalSelect: () => {},
       eventComponent: Event,
-    }
+    };
   });
 
   it('render', () => {
@@ -55,32 +54,28 @@ describe('WeekCalendar', () => {
   });
 
   it('calculate column dimension', () => {
-    const savedQuerySelectorAll = global.document['querySelectorAll'];
-    const testFunction = () => {
-      return [{
-        getBoundingClientRect: () => {
-          return {
-            width: 100
-          }
-        }
-      }]
-    }
+    const savedQuerySelectorAll = global.document.querySelectorAll;
+    const testFunction = () => [{
+      getBoundingClientRect: () => ({
+        width: 100,
+      }),
+    }];
 
-    global.document['querySelectorAll'] = testFunction;
+    global.document.querySelectorAll = testFunction;
     const wrapper = mount(<WeekCalendar {...props} />);
-    global.document['querySelectorAll'] = savedQuerySelectorAll; //restore old function
-    expect(wrapper.state('columnDimensions')[0]).to.deep.equal({width: 100, left: 0});
-    expect(wrapper.state('columnDimensions')[props.numberOfDays - 1]).to.deep.equal({width: 100, left: (props.numberOfDays - 1) * 100});
+    global.document.querySelectorAll = savedQuerySelectorAll; // restore old function
+    expect(wrapper.state('columnDimensions')[0]).to.deep.equal({ width: 100, left: 0 });
+    expect(wrapper.state('columnDimensions')[props.numberOfDays - 1]).to.deep.equal({ width: 100, left: (props.numberOfDays - 1) * 100 });
   });
 
   it('recalculate intervals when receive new props', () => {
     const wrapper = shallow(<WeekCalendar {...props} />);
     const newProps = {
       ...props,
-      scaleUnit: 60
-    }
+      scaleUnit: 60,
+    };
     wrapper.setProps(newProps);
-    expect(wrapper.state('scaleIntervals')).to.deep.equal(CalendarUtils.getIntervalsByDuration(newProps.scaleUnit, moment({h:0, m:0}), moment({h:23, m:59})));
+    expect(wrapper.state('scaleIntervals')).to.deep.equal(CalendarUtils.getIntervalsByDuration(newProps.scaleUnit, moment({ h: 0, m: 0 }), moment({ h: 23, m: 59 })));
   });
 
   it('handle scroll', () => {
@@ -88,16 +83,16 @@ describe('WeekCalendar', () => {
     wrapper.find('.weekCalendar__content').simulate('scroll', {
       target: {
         scrollTop: 100,
-        scrollLeft: 200
-      }
+        scrollLeft: 200,
+      },
     });
-    expect(wrapper.find('.weekCalendar__header').prop('style')).to.deep.equal({left: -200});
-    expect(wrapper.find('.weekCalendar__scaleColumn').prop('style')).to.deep.equal({top: -100});
+    expect(wrapper.find('.weekCalendar__header').prop('style')).to.deep.equal({ left: -200 });
+    expect(wrapper.find('.weekCalendar__scaleColumn').prop('style')).to.deep.equal({ top: -100 });
   });
 
   it('no update state on mouse enter because no selection started', () => {
     const wrapper = shallow(<WeekCalendar {...props} />);
-    wrapper.setState({columnDimensions, startSelectionPosition: null, mousePosition: null})
+    wrapper.setState({ columnDimensions, startSelectionPosition: null, mousePosition: null });
     wrapper.find(CalendarBody).props().onCellMouseEnter(0, 0);
     expect(wrapper.state('mousePosition')).equal(null);
   });
@@ -106,19 +101,18 @@ describe('WeekCalendar', () => {
     const wrapper = shallow(<WeekCalendar {...props} />);
     const startPosition = {
       x: 0,
-      y: 0
+      y: 0,
     };
-    wrapper.setState({columnDimensions, startSelectionPosition: startPosition, mousePosition: startPosition})
+    wrapper.setState({ columnDimensions, startSelectionPosition: startPosition, mousePosition: startPosition });
     wrapper.find(CalendarBody).props().onCellMouseEnter(1, 1);
-    expect(wrapper.state('mousePosition')).to.deep.equal({x: 1, y: 1});
+    expect(wrapper.state('mousePosition')).to.deep.equal({ x: 1, y: 1 });
     expect(wrapper.state('startSelectionPosition')).to.deep.equal(startPosition);
   });
 
   it('mouseup - right click', () => {
     const onIntervalSelect = sinon.spy();
-    const wrapper = mount(<WeekCalendar {...props} onIntervalSelect={onIntervalSelect}/>);
-    wrapper.simulate('mouseup', {button: 2});
+    const wrapper = mount(<WeekCalendar {...props} onIntervalSelect={onIntervalSelect} />);
+    wrapper.simulate('mouseup', { button: 2 });
     expect(onIntervalSelect.notCalled).equal(true);
   });
-
 });

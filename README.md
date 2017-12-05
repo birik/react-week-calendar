@@ -1,3 +1,5 @@
+[![NPM](https://img.shields.io/npm/v/react-week-calendar.svg)](https://www.npmjs.com/package/react-week-calendar)
+
 # react-week-calendar
 
 A flexible week calendar implemented in [React.js](http://facebook.github.io/react/index.html). Additional dependency is [moment.js](https://momentjs.com/) 
@@ -33,7 +35,10 @@ In order to run demo locally, clone the repo and run:
 import WeekCalendar from 'react-week-calendar';
 
 import 'react-week-calendar/dist/style.less';
+// or import css file
+// import 'react-week-calendar/dist/style.css';
  ```
+ 
  
  ###Props
  

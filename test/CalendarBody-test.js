@@ -1,7 +1,6 @@
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount } from "enzyme";
-import sinon from 'sinon';
+import { shallow } from 'enzyme';
 import moment from 'moment';
 
 import * as CalendarUtils from './../src/Utils';
@@ -10,19 +9,18 @@ import DayCell from './../src/DayCell';
 import CalendarBody from './../src/CalendarBody';
 
 describe('CalendarBody', () => {
-
   let props;
   beforeEach(() => {
     props = {
       firstDay: moment(),
       numberOfDays: 3,
       scaleUnit: 60,
-      scaleIntervals: CalendarUtils.getIntervalsByDuration(60, moment({h:0, m:0}), moment({h:23, m:59})),
+      scaleIntervals: CalendarUtils.getIntervalsByDuration(60, moment({ h: 0, m: 0 }), moment({ h: 23, m: 59 })),
       cellHeight: 30,
       dayCellComponent: DayCell,
       onSelectionStart: () => {},
       onCellMouseEnter: () => {},
-    }
+    };
   });
 
   it('render', () => {
@@ -36,22 +34,22 @@ describe('CalendarBody', () => {
     const wrapper = shallow(<CalendarBody {...props} />);
     const newProps = {
       ...props,
-      cellHeight: 10
-    }
+      cellHeight: 10,
+    };
     wrapper.setProps(newProps);
-    expect(wrapper.find(DayColumn).find({cellHeight: props.cellHeight})).to.have.length(0);
-    expect(wrapper.find(DayColumn).find({cellHeight: newProps.cellHeight})).to.have.length(newProps.numberOfDays);
+    expect(wrapper.find(DayColumn).find({ cellHeight: props.cellHeight })).to.have.length(0);
+    expect(wrapper.find(DayColumn).find({ cellHeight: newProps.cellHeight })).to.have.length(newProps.numberOfDays);
   });
 
   it('should update when scaleUnit change', () => {
     const wrapper = shallow(<CalendarBody {...props} />);
     const newProps = {
       ...props,
-      scaleUnit: 30
-    }
+      scaleUnit: 30,
+    };
     wrapper.setProps(newProps);
-    expect(wrapper.find(DayColumn).find({scaleUnit: props.scaleUnit})).to.have.length(0);
-    expect(wrapper.find(DayColumn).find({scaleUnit: newProps.scaleUnit})).to.have.length(newProps.numberOfDays);
+    expect(wrapper.find(DayColumn).find({ scaleUnit: props.scaleUnit })).to.have.length(0);
+    expect(wrapper.find(DayColumn).find({ scaleUnit: newProps.scaleUnit })).to.have.length(newProps.numberOfDays);
   });
 
   it('should update when numberOfDays change', () => {
@@ -59,10 +57,9 @@ describe('CalendarBody', () => {
     expect(wrapper.find(DayColumn)).to.have.length(props.numberOfDays);
     const newProps = {
       ...props,
-      numberOfDays: 5
-    }
+      numberOfDays: 5,
+    };
     wrapper.setProps(newProps);
     expect(wrapper.find(DayColumn)).to.have.length(newProps.numberOfDays);
   });
-
 });

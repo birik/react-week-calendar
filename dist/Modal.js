@@ -52,6 +52,7 @@ var Modal = function (_React$Component) {
       _this.props.onRemove();
     }, _this.handleSave = function () {
       var value = _this.input.value;
+
       _this.props.onSave({
         value: value
       });
@@ -96,7 +97,7 @@ var Modal = function (_React$Component) {
         ),
         _react2.default.createElement('input', {
           ref: function ref(el) {
-            return _this2.input = el;
+            _this2.input = el;
           },
           className: 'customModal__input',
           type: 'text',

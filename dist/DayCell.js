@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DayCell = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -24,12 +23,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var propTypes = {
-  startTime: _propTypes2.default.object.isRequired,
-  endTime: _propTypes2.default.object.isRequired,
-  startSelection: _propTypes2.default.func
+  startSelection: _propTypes2.default.func.isRequired
 };
 
-var DayCell = exports.DayCell = function (_React$Component) {
+var DayCell = function (_React$Component) {
   _inherits(DayCell, _React$Component);
 
   function DayCell() {
@@ -44,7 +41,7 @@ var DayCell = exports.DayCell = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DayCell.__proto__ || Object.getPrototypeOf(DayCell)).call.apply(_ref, [this].concat(args))), _this), _this.handleMouseDown = function (e) {
-      if (e.button == 0) {
+      if (e.button === 0) {
         _this.props.startSelection();
       }
     }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -55,7 +52,7 @@ var DayCell = exports.DayCell = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { onMouseDown: this.handleMouseDown, className: 'dayCell' },
+        { onMouseDown: this.handleMouseDown, className: 'dayCell', role: 'presentation' },
         '\xA0'
       );
     }
