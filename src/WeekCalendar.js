@@ -314,7 +314,7 @@ class WeekCalendar extends React.Component {
           const eventComponent = (
             <div
               className="weekCalendar__overlay"
-              key={(dayIndex * 10) + index}
+              key={(dayIndex * 20000) + index}
               style={eventWrapperStyle}
               onClick={this.handleEventClick.bind(this, interval)}
             >

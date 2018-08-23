@@ -226,7 +226,7 @@ var WeekCalendar = function (_React$Component) {
               'div',
               {
                 className: 'weekCalendar__overlay',
-                key: dayIndex * 10 + index,
+                key: dayIndex * 20000 + index,
                 style: eventWrapperStyle,
                 onClick: _this2.handleEventClick.bind(_this2, interval)
               },
