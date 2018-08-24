@@ -36,6 +36,7 @@ const propTypes = {
 
   modalComponent: PropTypes.func,
   useModal: PropTypes.bool,
+  eventSpacing: PropTypes.number,
 };
 
 const defaultProps = {
@@ -54,6 +55,7 @@ const defaultProps = {
   eventComponent: Event,
   modalComponent: Modal,
   useModal: true,
+  eventSpacing: 15,
 };
 
 class WeekCalendar extends React.Component {
@@ -265,6 +267,7 @@ class WeekCalendar extends React.Component {
       cellHeight,
       scaleUnit,
       selectedIntervals,
+      eventSpacing,
     } = this.props;
     const {
       columnDimensions,
@@ -302,8 +305,10 @@ class WeekCalendar extends React.Component {
             endY = scaleIntervals.length;
           }
           const top = startY * cellHeight;
-          const width = (columnDimensions[dayIndex].width - 15) / groupIntersection;
-          const left = columnDimensions[dayIndex].left + ((width + 7) * beforeIntersectionNumber);
+          const width = (columnDimensions[dayIndex].width - eventSpacing) / groupIntersection;
+
+          //TODO: dividing  by the GroupIntersection doesn't seem to work all that great...
+          const left = columnDimensions[dayIndex].left + ((width + Math.floor(eventSpacing / groupIntersection)) * beforeIntersectionNumber);
           const height = (endY - startY) * cellHeight;
           const eventWrapperStyle = {
             top,

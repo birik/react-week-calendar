@@ -2,7 +2,7 @@
 
 # react-week-calendar
 
-A flexible week calendar implemented in [React.js](http://facebook.github.io/react/index.html). Additional dependency is [moment.js](https://momentjs.com/) 
+A flexible week calendar implemented in [React.js](http://facebook.github.io/react/index.html). Additional dependency is [moment.js](https://momentjs.com/)
 
 ## Demo
 
@@ -14,23 +14,23 @@ In order to run demo locally, clone the repo and run:
  npm start
  ```
  and open [`localhost:3000`](http://localhost:3000) in your browser.
- 
+
  ## Installation
- 
+
   ```javascript
   npm install react-week-calendar --save
   ```
-  
+
   react-week-calendar in addition to react.js dependes on [moment.js](https://momentjs.com/). You need to have it in your dependencies:
-  
+
   ```javascript
   npm install moment --save
   ```
-  
+
   ##Usage
-  
+
   You need to import the component and styles in your application as follows:
-   
+
  ```javascript
 import WeekCalendar from 'react-week-calendar';
 
@@ -38,10 +38,10 @@ import 'react-week-calendar/dist/style.less';
 // or import css file
 // import 'react-week-calendar/dist/style.css';
  ```
- 
- 
+
+
  ###Props
- 
+
  | Property | Type | Default | Description
  :---|:---|:--- |:---
  | `firstDay` | momentObj | moment() | The day of the first column |
@@ -63,6 +63,7 @@ import 'react-week-calendar/dist/style.less';
  | `onEventClick` | func |  | |
  | `modalComponent` | ReactComponent | [Modal](https://github.com/birik/react-week-calendar/blob/master/src/Modal.js) | The react component that gets used for rendering of modal |
  | `useModal` | bool | true | If false, after selection of the intervals the modal will be not shown and intervals will send back |
+ | `eventSpacing` | number | 15 |The amount of horizontal space (in pixels) between events|
 
 If you want to change the styles of the component, you should overwrite the less variable. For example:
  ```
@@ -73,5 +74,5 @@ If you want to change the styles of the component, you should overwrite the less
 @column-min-width: 200px;
 @scale-width: 100px;
  ```
- 
+
 Check all variables and default values in [style.less](https://github.com/birik/react-week-calendar/blob/master/src/style.less)

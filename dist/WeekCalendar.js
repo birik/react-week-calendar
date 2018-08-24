@@ -85,7 +85,8 @@ var propTypes = {
   onEventClick: _propTypes2.default.func,
 
   modalComponent: _propTypes2.default.func,
-  useModal: _propTypes2.default.bool
+  useModal: _propTypes2.default.bool,
+  eventSpacing: _propTypes2.default.number
 };
 
 var defaultProps = {
@@ -103,7 +104,8 @@ var defaultProps = {
   selectedIntervals: [],
   eventComponent: _Event2.default,
   modalComponent: _Modal2.default,
-  useModal: true
+  useModal: true,
+  eventSpacing: 15
 };
 
 var WeekCalendar = function (_React$Component) {
@@ -168,7 +170,8 @@ var WeekCalendar = function (_React$Component) {
           numberOfDays = _props.numberOfDays,
           cellHeight = _props.cellHeight,
           scaleUnit = _props.scaleUnit,
-          selectedIntervals = _props.selectedIntervals;
+          selectedIntervals = _props.selectedIntervals,
+          eventSpacing = _props.eventSpacing;
       var _state = this.state,
           columnDimensions = _state.columnDimensions,
           scaleIntervals = _state.scaleIntervals;
@@ -213,8 +216,8 @@ var WeekCalendar = function (_React$Component) {
               endY = scaleIntervals.length;
             }
             var top = startY * cellHeight;
-            var width = (columnDimensions[dayIndex].width - 15) / groupIntersection;
-            var left = columnDimensions[dayIndex].left + (width + 7) * beforeIntersectionNumber;
+            var width = (columnDimensions[dayIndex].width - eventSpacing) / groupIntersection;
+            var left = columnDimensions[dayIndex].left + (width + Math.floor(eventSpacing / groupIntersection)) * beforeIntersectionNumber;
             var height = (endY - startY) * cellHeight;
             var eventWrapperStyle = {
               top: top,
