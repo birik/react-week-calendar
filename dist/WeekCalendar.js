@@ -217,6 +217,8 @@ var WeekCalendar = function (_React$Component) {
             }
             var top = startY * cellHeight;
             var width = (columnDimensions[dayIndex].width - eventSpacing) / groupIntersection;
+
+            //TODO: dividing  by the GroupIntersection doesn't seem to work all that great...
             var left = columnDimensions[dayIndex].left + (width + Math.floor(eventSpacing / groupIntersection)) * beforeIntersectionNumber;
             var height = (endY - startY) * cellHeight;
             var eventWrapperStyle = {
