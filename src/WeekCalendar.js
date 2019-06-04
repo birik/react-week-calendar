@@ -35,7 +35,7 @@ const propTypes = {
   onEventClick: PropTypes.func,
 
   modalComponent: PropTypes.func,
-  useModal: PropTypes.bool,
+  useModal: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // bool - always display or never display, object - conditionally for create vs. delete
   eventSpacing: PropTypes.number,
 };
 
@@ -192,7 +192,7 @@ class WeekCalendar extends React.Component {
       .minute(endSelectionTime.minute())
       .second(0);
 
-    if (useModal) {
+    if (useModal === true || useModal.forCreateInterval === true) {
       const preselectedInterval = {
         start,
         end,
@@ -362,6 +362,11 @@ class WeekCalendar extends React.Component {
   renderModal() {
     const { useModal } = this.props;
     const { preselectedInterval } = this.state;
+    const isExistingInterval = preselectedInterval && preselectedInterval.uid;
+    if (useModal && useModal.forDeleteInterval === false && isExistingInterval) {
+      return;
+    }
+
     if (useModal && preselectedInterval) {
       const ModalComponent = this.props.modalComponent;
       return (
