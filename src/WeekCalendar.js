@@ -161,6 +161,7 @@ class WeekCalendar extends React.Component {
       firstDay,
       scaleUnit,
       useModal,
+      showModalCase,
     } = this.props;
     const {
       startSelectionPosition,
@@ -196,7 +197,7 @@ class WeekCalendar extends React.Component {
       .minute(endSelectionTime.minute())
       .second(0);
 
-    if (useModal) {
+    if (useModal && showModalCase.includes(ACTION_TYPES.CREATE)) {
       const preselectedInterval = {
         start,
         end,
@@ -367,8 +368,8 @@ class WeekCalendar extends React.Component {
     const { useModal, showModalCase } = this.props;
     const { preselectedInterval } = this.state;
 
-    const isEditingExistingInterval = preselectedInterval && preselectedInterval.value;
-    const isCreatingNewInterval = preselectedInterval && !preselectedInterval.value;
+    const isEditingExistingInterval = preselectedInterval && preselectedInterval.hasOwnProperty('uid');
+    const isCreatingNewInterval = preselectedInterval && !preselectedInterval.hasOwnProperty('value') && !preselectedInterval.hasOwnProperty('uid');
     const shouldRenderModal = useModal
       && ((isEditingExistingInterval && showModalCase.includes(ACTION_TYPES.EDIT))
       || (isCreatingNewInterval && showModalCase.includes(ACTION_TYPES.CREATE)));
