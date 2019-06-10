@@ -12,6 +12,8 @@ import DayCell from './DayCell';
 import Event from './Event';
 import Modal from './Modal';
 
+import { ACTION_TYPES } from './constants';
+
 const propTypes = {
   firstDay: PropTypes.object, // the first day in the caledar
   numberOfDays: PropTypes.number,
@@ -35,7 +37,8 @@ const propTypes = {
   onEventClick: PropTypes.func,
 
   modalComponent: PropTypes.func,
-  useModal: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // bool - always display or never display, object - conditionally for create vs. delete
+  useModal: PropTypes.bool,
+  showModalCase: PropTypes.arrayOf(PropTypes.string),
   eventSpacing: PropTypes.number,
 };
 
@@ -55,6 +58,7 @@ const defaultProps = {
   eventComponent: Event,
   modalComponent: Modal,
   useModal: true,
+  showModalCase: [ACTION_TYPES.CREATE, ACTION_TYPES.EDIT],
   eventSpacing: 15,
 };
 
@@ -192,7 +196,7 @@ class WeekCalendar extends React.Component {
       .minute(endSelectionTime.minute())
       .second(0);
 
-    if (useModal === true || useModal.forCreateInterval === true) {
+    if (useModal) {
       const preselectedInterval = {
         start,
         end,
@@ -307,7 +311,7 @@ class WeekCalendar extends React.Component {
           const top = startY * cellHeight;
           const width = (columnDimensions[dayIndex].width - eventSpacing) / groupIntersection;
 
-          //TODO: dividing  by the GroupIntersection doesn't seem to work all that great...
+          // TODO: dividing  by the GroupIntersection doesn't seem to work all that great...
           const left = columnDimensions[dayIndex].left + ((width + Math.floor(eventSpacing / groupIntersection)) * beforeIntersectionNumber);
           const height = (endY - startY) * cellHeight;
           const eventWrapperStyle = {
@@ -361,13 +365,15 @@ class WeekCalendar extends React.Component {
 
   renderModal() {
     const { useModal } = this.props;
-    const { preselectedInterval } = this.state;
-    const isExistingInterval = preselectedInterval && preselectedInterval.uid;
-    if (useModal && useModal.forDeleteInterval === false && isExistingInterval) {
-      return;
-    }
+    const { preselectedInterval, showModalCase } = this.state;
 
-    if (useModal && preselectedInterval) {
+    const isEditingExistingInterval = preselectedInterval && preselectedInterval.value;
+    const isCreatingNewInterval = preselectedInterval && !preselectedInterval.value;
+    const shouldRenderModal = (useModal && preselectedInterval)
+      || (isEditingExistingInterval && showModalCase.includes(ACTION_TYPES.EDIT))
+      || (isCreatingNewInterval && showModalCase.includes(ACTION_TYPES.CREATE));
+
+    if (shouldRenderModal) {
       const ModalComponent = this.props.modalComponent;
       return (
         <div className="calendarModal">
@@ -377,6 +383,7 @@ class WeekCalendar extends React.Component {
               {...preselectedInterval}
               onRemove={this.removePreselectedInterval}
               onSave={this.submitPreselectedInterval}
+              actionType={isEditingExistingInterval ? ACTION_TYPES.EDIT : ACTION_TYPES.CREATE}
             />
           </div>
         </div>
