@@ -27,7 +27,7 @@ In order to run demo locally, clone the repo and run:
   npm install moment --save
   ```
 
-  ##Usage
+  ## Usage
 
   You need to import the component and styles in your application as follows:
 
@@ -40,7 +40,7 @@ import 'react-week-calendar/dist/style.less';
  ```
 
 
- ###Props
+ ### Props
 
  | Property | Type | Default | Description
  :---|:---|:--- |:---
@@ -63,6 +63,7 @@ import 'react-week-calendar/dist/style.less';
  | `onEventClick` | func |  | |
  | `modalComponent` | ReactComponent | [Modal](https://github.com/birik/react-week-calendar/blob/master/src/Modal.js) | The react component that gets used for rendering of modal |
  | `useModal` | bool | true | If false, after selection of the intervals the modal will be not shown and intervals will send back |
+ | `showModalCase` | array | ['create', 'edit'] | Cases in which to show the modal (create new interval vs. edit existing interval)
  | `eventSpacing` | number | 15 |The amount of horizontal space (in pixels) between events|
 
 If you want to change the styles of the component, you should overwrite the less variable. For example:
