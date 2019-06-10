@@ -369,9 +369,9 @@ class WeekCalendar extends React.Component {
 
     const isEditingExistingInterval = preselectedInterval && preselectedInterval.value;
     const isCreatingNewInterval = preselectedInterval && !preselectedInterval.value;
-    const shouldRenderModal = (useModal && preselectedInterval)
-      || (isEditingExistingInterval && showModalCase.includes(ACTION_TYPES.EDIT))
-      || (isCreatingNewInterval && showModalCase.includes(ACTION_TYPES.CREATE));
+    const shouldRenderModal = useModal
+      && ((isEditingExistingInterval && showModalCase.includes(ACTION_TYPES.EDIT))
+      || (isCreatingNewInterval && showModalCase.includes(ACTION_TYPES.CREATE)));
 
     if (shouldRenderModal) {
       const ModalComponent = this.props.modalComponent;
