@@ -366,18 +366,9 @@ class WeekCalendar extends React.Component {
 
   renderModal() {
     const { useModal, showModalCase } = this.props;
-    const { preselectedInterval } = this.state;
-
-    const isEditingExistingInterval = preselectedInterval
-      && Object.prototype.hasOwnProperty.call(preselectedInterval, 'uid');
-
-    const isCreatingNewInterval = preselectedInterval
-      && !Object.prototype.hasOwnProperty.call(preselectedInterval, 'value')
-      && !Object.prototype.hasOwnProperty.call(preselectedInterval, 'uid');
-
-    const shouldRenderModal = useModal
-      && ((isEditingExistingInterval && showModalCase.includes(ACTION_TYPES.EDIT))
-      || (isCreatingNewInterval && showModalCase.includes(ACTION_TYPES.CREATE)));
+    const { preselectedInterval, updateEvent } = this.state;
+    const currentCase = updateEvent ? ACTION_TYPES.EDIT : ACTION_TYPES.CREATE;
+    const shouldRenderModal = preselectedInterval && useModal && showModalCase.includes(currentCase);
 
     if (shouldRenderModal) {
       const ModalComponent = this.props.modalComponent;
@@ -389,7 +380,7 @@ class WeekCalendar extends React.Component {
               {...preselectedInterval}
               onRemove={this.removePreselectedInterval}
               onSave={this.submitPreselectedInterval}
-              actionType={isEditingExistingInterval ? ACTION_TYPES.EDIT : ACTION_TYPES.CREATE}
+              actionType={currentCase}
             />
           </div>
         </div>

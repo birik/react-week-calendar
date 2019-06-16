@@ -52,6 +52,8 @@ var _Modal = require('./Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
+var _constants = require('./constants');
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -86,6 +88,7 @@ var propTypes = {
 
   modalComponent: _propTypes2.default.func,
   useModal: _propTypes2.default.bool,
+  showModalCase: _propTypes2.default.arrayOf(_propTypes2.default.string),
   eventSpacing: _propTypes2.default.number
 };
 
@@ -105,6 +108,7 @@ var defaultProps = {
   eventComponent: _Event2.default,
   modalComponent: _Modal2.default,
   useModal: true,
+  showModalCase: [_constants.ACTION_TYPES.CREATE, _constants.ACTION_TYPES.EDIT],
   eventSpacing: 15
 };
 
@@ -218,7 +222,7 @@ var WeekCalendar = function (_React$Component) {
             var top = startY * cellHeight;
             var width = (columnDimensions[dayIndex].width - eventSpacing) / groupIntersection;
 
-            //TODO: dividing  by the GroupIntersection doesn't seem to work all that great...
+            // TODO: dividing  by the GroupIntersection doesn't seem to work all that great...
             var left = columnDimensions[dayIndex].left + (width + Math.floor(eventSpacing / groupIntersection)) * beforeIntersectionNumber;
             var height = (endY - startY) * cellHeight;
             var eventWrapperStyle = {
@@ -277,10 +281,17 @@ var WeekCalendar = function (_React$Component) {
   }, {
     key: 'renderModal',
     value: function renderModal() {
-      var useModal = this.props.useModal;
-      var preselectedInterval = this.state.preselectedInterval;
+      var _props2 = this.props,
+          useModal = _props2.useModal,
+          showModalCase = _props2.showModalCase;
+      var _state2 = this.state,
+          preselectedInterval = _state2.preselectedInterval,
+          updateEvent = _state2.updateEvent;
 
-      if (useModal && preselectedInterval) {
+      var currentCase = updateEvent ? _constants.ACTION_TYPES.EDIT : _constants.ACTION_TYPES.CREATE;
+      var shouldRenderModal = preselectedInterval && useModal && showModalCase.includes(currentCase);
+
+      if (shouldRenderModal) {
         var ModalComponent = this.props.modalComponent;
         return _react2.default.createElement(
           'div',
@@ -291,7 +302,8 @@ var WeekCalendar = function (_React$Component) {
             { className: 'calendarModal__content' },
             _react2.default.createElement(ModalComponent, _extends({}, preselectedInterval, {
               onRemove: this.removePreselectedInterval,
-              onSave: this.submitPreselectedInterval
+              onSave: this.submitPreselectedInterval,
+              actionType: currentCase
             }))
           )
         );
@@ -302,16 +314,16 @@ var WeekCalendar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props2 = this.props,
-          firstDay = _props2.firstDay,
-          numberOfDays = _props2.numberOfDays,
-          headerCellComponent = _props2.headerCellComponent,
-          dayFormat = _props2.dayFormat,
-          scaleUnit = _props2.scaleUnit,
-          scaleFormat = _props2.scaleFormat,
-          cellHeight = _props2.cellHeight,
-          dayCellComponent = _props2.dayCellComponent,
-          scaleHeaderTitle = _props2.scaleHeaderTitle;
+      var _props3 = this.props,
+          firstDay = _props3.firstDay,
+          numberOfDays = _props3.numberOfDays,
+          headerCellComponent = _props3.headerCellComponent,
+          dayFormat = _props3.dayFormat,
+          scaleUnit = _props3.scaleUnit,
+          scaleFormat = _props3.scaleFormat,
+          cellHeight = _props3.cellHeight,
+          dayCellComponent = _props3.dayCellComponent,
+          scaleHeaderTitle = _props3.scaleHeaderTitle;
 
 
       var isSelection = this.state.startSelectionPosition != null;
@@ -432,14 +444,15 @@ var _initialiseProps = function _initialiseProps() {
       return;
     }
 
-    var _props3 = _this3.props,
-        firstDay = _props3.firstDay,
-        scaleUnit = _props3.scaleUnit,
-        useModal = _props3.useModal;
-    var _state2 = _this3.state,
-        startSelectionPosition = _state2.startSelectionPosition,
-        mousePosition = _state2.mousePosition,
-        scaleIntervals = _state2.scaleIntervals;
+    var _props4 = _this3.props,
+        firstDay = _props4.firstDay,
+        scaleUnit = _props4.scaleUnit,
+        useModal = _props4.useModal,
+        showModalCase = _props4.showModalCase;
+    var _state3 = _this3.state,
+        startSelectionPosition = _state3.startSelectionPosition,
+        mousePosition = _state3.mousePosition,
+        scaleIntervals = _state3.scaleIntervals;
 
 
     if (startSelectionPosition == null) {
@@ -464,7 +477,7 @@ var _initialiseProps = function _initialiseProps() {
     var start = (0, _moment2.default)(startDay).hour(startSelectionTime.hour()).minute(startSelectionTime.minute()).second(0);
     var end = (0, _moment2.default)(endDay).hour(endSelectionTime.hour()).minute(endSelectionTime.minute()).second(0);
 
-    if (useModal) {
+    if (useModal && showModalCase.includes(_constants.ACTION_TYPES.CREATE)) {
       var preselectedInterval = {
         start: start,
         end: end
@@ -487,9 +500,9 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.removePreselectedInterval = function () {
-    var _state3 = _this3.state,
-        preselectedInterval = _state3.preselectedInterval,
-        updateEvent = _state3.updateEvent;
+    var _state4 = _this3.state,
+        preselectedInterval = _state4.preselectedInterval,
+        updateEvent = _state4.updateEvent;
 
     if (updateEvent && _this3.props.onIntervalRemove) {
       _this3.props.onIntervalRemove(preselectedInterval);
@@ -498,9 +511,9 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.submitPreselectedInterval = function (newValue) {
-    var _state4 = _this3.state,
-        preselectedInterval = _state4.preselectedInterval,
-        updateEvent = _state4.updateEvent;
+    var _state5 = _this3.state,
+        preselectedInterval = _state5.preselectedInterval,
+        updateEvent = _state5.updateEvent;
 
 
     if (updateEvent) {
