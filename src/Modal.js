@@ -7,6 +7,7 @@ const propTypes = {
   value: PropTypes.string,
   onRemove: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
+  actionType: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 };
 
 const defaultProps = {

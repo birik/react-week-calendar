@@ -11,16 +11,12 @@ const propTypes = {
 };
 
 class DayColumn extends React.Component {
-  handleMouseEnter = (col, row) => {
-    return () => {
-      this.props.onCellMouseEnter(col, row);
-    };
+  handleMouseEnter = (col, row) => () => {
+    this.props.onCellMouseEnter(col, row);
   }
 
-  handleStartSelection = (col, row) => {
-    return () => {
-      this.props.onSelectionStart(col, row);
-    };
+  handleStartSelection = (col, row) => () => {
+    this.props.onSelectionStart(col, row);
   }
 
   render() {
