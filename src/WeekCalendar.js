@@ -40,6 +40,7 @@ const propTypes = {
   useModal: PropTypes.bool,
   showModalCase: PropTypes.arrayOf(PropTypes.string),
   eventSpacing: PropTypes.number,
+  scrollOnTimeColumn: PropTypes.bool
 };
 
 const defaultProps = {
@@ -60,6 +61,7 @@ const defaultProps = {
   useModal: true,
   showModalCase: [ACTION_TYPES.CREATE, ACTION_TYPES.EDIT],
   eventSpacing: 15,
+  scrollOnTimeColumn: true
 };
 
 class WeekCalendar extends React.Component {
@@ -401,6 +403,7 @@ class WeekCalendar extends React.Component {
       cellHeight,
       dayCellComponent,
       scaleHeaderTitle,
+      scrollOnTimeColumn,
     } = this.props;
 
     const isSelection = this.state.startSelectionPosition != null;
@@ -410,38 +413,40 @@ class WeekCalendar extends React.Component {
         <div className="weekCalendar__scaleHeader" >
           <span>{scaleHeaderTitle}</span>
         </div>
-        <div className="weekCalendar__header" style={{ left: -this.state.scrollPosition.left }}>
-          <CalendarHeader
-            firstDay={firstDay}
-            numberOfDays={numberOfDays}
-            dayFormat={dayFormat}
-            columnDimensions={this.state.columnDimensions}
-            headerCellComponent={headerCellComponent}
-          />
+        <div className={scrollOnTimeColumn ? 'weekCalendar-main-container' : ''}>
+          <div className="weekCalendar__header" style={{ left: -this.state.scrollPosition.left }}>
+            <CalendarHeader
+              firstDay={firstDay}
+              numberOfDays={numberOfDays}
+              dayFormat={dayFormat}
+              columnDimensions={this.state.columnDimensions}
+              headerCellComponent={headerCellComponent}
+            />
+          </div>
+          <div className="weekCalendar__scaleColumn" style={{ top: -this.state.scrollPosition.top }}>
+            <ScaleColumn
+              scaleUnit={this.props.scaleUnit}
+              scaleFormat={scaleFormat}
+              scaleIntervals={this.state.scaleIntervals}
+              cellHeight={this.props.cellHeight}
+            />
+          </div>
+          <div className="weekCalendar__content" onScroll={this.handleScroll}>
+            <CalendarBody
+              firstDay={firstDay}
+              numberOfDays={numberOfDays}
+              scaleUnit={scaleUnit}
+              scaleIntervals={this.state.scaleIntervals}
+              cellHeight={cellHeight}
+              dayCellComponent={dayCellComponent}
+              onSelectionStart={this.handleSelectionStart}
+              onCellMouseEnter={this.handleCellMouseEnter}
+            />
+            {this.renderSelectedIntervals()}
+            {this.renderOverlay()}
+          </div>
+          {this.renderModal()}
         </div>
-        <div className="weekCalendar__scaleColumn" style={{ top: -this.state.scrollPosition.top }}>
-          <ScaleColumn
-            scaleUnit={this.props.scaleUnit}
-            scaleFormat={scaleFormat}
-            scaleIntervals={this.state.scaleIntervals}
-            cellHeight={this.props.cellHeight}
-          />
-        </div>
-        <div className="weekCalendar__content" onScroll={this.handleScroll}>
-          <CalendarBody
-            firstDay={firstDay}
-            numberOfDays={numberOfDays}
-            scaleUnit={scaleUnit}
-            scaleIntervals={this.state.scaleIntervals}
-            cellHeight={cellHeight}
-            dayCellComponent={dayCellComponent}
-            onSelectionStart={this.handleSelectionStart}
-            onCellMouseEnter={this.handleCellMouseEnter}
-          />
-          {this.renderSelectedIntervals()}
-          {this.renderOverlay()}
-        </div>
-        {this.renderModal()}
       </div>
     );
   }
