@@ -65,6 +65,7 @@ import 'react-week-calendar/dist/style.less';
  | `useModal` | bool | true | If false, after selection of the intervals the modal will be not shown and intervals will send back |
  | `showModalCase` | array | ['create', 'edit'] | Cases in which to show the modal (create new interval vs. edit existing interval)
  | `eventSpacing` | number | 15 |The amount of horizontal space (in pixels) between events|
+ | `scrollOnTimeColumn` | bool | false | If true, It will allow to scroll the calendar content on first column as well |
 
 If you want to change the styles of the component, you should overwrite the less variable. For example:
  ```
